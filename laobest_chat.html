@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老Best CHAT - 一盤棋，就可以同屋企人變成老Best！</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #e8929c;
+            --pink-dark: #d4727e;
+            --pink-light: #f5c6cc;
+            --blue: #7eb8e2;
+            --blue-dark: #5a9bc9;
+            --blue-light: #b8d8f0;
+            --green: #a8d5a2;
+            --green-dark: #8bc085;
+            --green-light: #cce8c9;
+            --yellow: #f5e6a3;
+            --yellow-dark: #e8d47a;
+            --yellow-light: #faf3d1;
+            --cream: #f9f3d8;
+            --cream-dark: #f0e8c0;
+            --dark: #2d2d2d;
+            --purple: #8b7fb8;
+            --white: #ffffff;
+            --shadow: rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--cream) 0%, #fff8dc 50%, var(--cream-dark) 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(232,146,156,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(126,184,226,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(168,213,162,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .float-item {
+            position: absolute;
+            font-size: 2.5rem;
+            opacity: 0.12;
+            animation: float 8s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-25px) rotate(5deg); }
+            66% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        .logo-container {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .main-title {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            color: var(--dark);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow: 4px 4px 0px rgba(0,0,0,0.06);
+            letter-spacing: -2px;
+        }
+
+        .main-title .best {
+            color: var(--pink-dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .main-title .best::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: -5%;
+            width: 110%;
+            height: 12px;
+            background: var(--green);
+            border-radius: 6px;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            color: #555;
+            margin-top: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .hero-illustration {
+            margin: 2.5rem 0;
+            font-size: 5rem;
+            animation: gentleBounce 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--pink);
+            color: white;
+            box-shadow: 0 6px 20px rgba(232,146,156,0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--pink-dark);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(232,146,156,0.45);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--dark);
+            border: 3px solid var(--green);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .btn-secondary:hover {
+            background: var(--green);
+            color: white;
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(168,213,162,0.4);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section-title {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 10%;
+            width: 80%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--pink), var(--blue), var(--green));
+            border-radius: 3px;
+            opacity: 0.4;
+        }
+
+        /* ===== GAME BOARD - EXACT LAYOUT ===== */
+        .game-section {
+            padding: 4rem 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .board-wrapper {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(11, 1fr);
+            grid-template-rows: repeat(11, 1fr);
+            gap: 3px;
+            aspect-ratio: 1;
+            max-width: 750px;
+            margin: 0 auto;
+            background: var(--cream-dark);
+            padding: 3px;
+            border-radius: 16px;
+        }
+
+        .cell {
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            font-size: 0.65rem;
+            padding: 2px;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.3);
+        }
+
+        .cell:hover {
+            transform: scale(1.15);
+            z-index: 20;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .cell-icon { font-size: 1.1rem; margin-bottom: 1px; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1)); }
+        .cell-text { font-size: 0.6rem; line-height: 1; }
+
+        .cell-share { background: var(--pink); color: white; }
+        .cell-action { background: var(--blue); color: white; }
+        .cell-bond { background: var(--green); color: white; }
+        .cell-chance { background: var(--yellow); color: #5a4a00; }
+        .cell-coffee { background: #f5f5f0; color: #888; }
+        .cell-start { background: var(--yellow-dark); color: var(--dark); font-size: 0.9rem; font-family: 'ZCOOL KuaiLe', cursive; }
+        .cell-dice { background: var(--purple); color: white; }
+        .cell-corner { background: var(--pink-dark); color: white; }
+
+        /* Center Logo Area */
+        .center-logo {
+            grid-column: 3 / 10;
+            grid-row: 3 / 10;
+            background: linear-gradient(135deg, var(--cream) 0%, #fff8dc 100%);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--cream-dark);
+        }
+
+        .center-logo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(232,146,156,0.1) 0%, transparent 40%),
+                radial-gradient(circle at 70% 60%, rgba(126,184,226,0.1) 0%, transparent 40%);
+        }
+
+        .center-title {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--dark);
+            line-height: 1.1;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .center-title .best-text { color: var(--pink-dark); position: relative; }
+        .center-title .best-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--green);
+            border-radius: 3px;
+            opacity: 0.5;
+        }
+
+        .center-subtitle {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.5rem;
+            text-align: center;
+            z-index: 2;
+            padding: 0 1rem;
+        }
+
+        .center-emoji {
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            z-index: 2;
+            animation: gentleBounce 2s ease-in-out infinite;
+        }
+
+        /* Player tokens on board */
+        .player-token {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            z-index: 30;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .token-p1 { background: #ff6b6b; }
+        .token-p2 { background: #4ecdc4; }
+        .token-p3 { background: #ffe66d; color: var(--dark); }
+        .token-p4 { background: #a8e6cf; color: var(--dark); }
+
+        /* ===== 3D FLIP CARDS ===== */
+        .cards-section {
+            padding: 4rem 1rem;
+            background: linear-gradient(180deg, white 0%, var(--cream) 100%);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .flip-card {
+            background: transparent;
+            height: 320px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .flip-card-front {
+            color: white;
+            overflow: hidden;
+        }
+
+        .flip-card-front::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.05) 10deg, transparent 20deg);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background: white;
+            color: var(--dark);
+            border: 3px solid;
+        }
+
+        .card-share .flip-card-front { background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%); }
+        .card-share .flip-card-back { border-color: var(--pink); }
+
+        .card-action .flip-card-front { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); }
+        .card-action .flip-card-back { border-color: var(--blue); }
+
+        .card-bond .flip-card-front { background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); }
+        .card-bond .flip-card-back { border-color: var(--green); }
+
+        .card-chance .flip-card-front { background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%); color: var(--dark); }
+        .card-chance .flip-card-back { border-color: var(--yellow-dark); }
+
+        .card-icon { font-size: 3.5rem; margin-bottom: 1rem; z-index: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .card-title { font-family: 'ZCOOL KuaiLe', cursive; font-size: 1.8rem; margin-bottom: 0.5rem; z-index: 1; }
+        .card-desc { font-size: 0.95rem; opacity: 0.9; z-index: 1; }
+
+        .card-question {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .card-hint {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: auto;
+        }
+
+        .next-card-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 20px;
+            background: var(--dark);
+            color: white;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .next-card-btn:hover { transform: scale(1.05); }
+
+        /* ===== MULTIPLAYER ===== */
+        .multiplayer-section {
+            padding: 4rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .player-setup {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .player-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .player-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .player-input-group input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .player-input-group input:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(168,213,162,0.2);
+        }
+
+        .player-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .game-status {
+            background: var(--cream);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .current-player {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-positions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .player-pos {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* ===== HOW TO PLAY ===== */
+        .how-to-play {
+            padding: 4rem 1rem;
+            background: white;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step {
+            background: linear-gradient(135deg, #fff 0%, var(--cream) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            border-color: var(--green-light);
+        }
+
+        .step-number {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.6rem;
+            color: white;
+            margin: 0 auto 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .step:nth-child(1) .step-number { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); }
+        .step:nth-child(2) .step-number { background: linear-gradient(135deg, var(--blue), var(--blue-dark)); }
+        .step:nth-child(3) .step-number { background: linear-gradient(135deg, var(--green), var(--green-dark)); }
+        .step:nth-child(4) .step-number { background: linear-gradient(135deg, var(--yellow), var(--yellow-dark)); color: var(--dark); }
+
+        .step h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .step p { color: #666; font-size: 0.95rem; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .footer-logo {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-tagline { color: #aaa; margin-bottom: 1.5rem; }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.8) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.6rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #999;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover { background: #f0f0f0; color: var(--dark); }
+
+        .question-list {
+            list-style: none;
+        }
+
+        .question-list li {
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.6rem;
+            border-radius: 12px;
+            background: #f8f8f8;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-size: 0.95rem;
+            border-left: 4px solid transparent;
+        }
+
+        .question-list li:hover {
+            background: var(--cream);
+            transform: translateX(5px);
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .game-board { gap: 2px; padding: 2px; }
+            .cell { font-size: 0.5rem; min-height: 28px; }
+            .cell-icon { font-size: 0.8rem; }
+            .center-title { font-size: 1.2rem; }
+            .center-subtitle { font-size: 0.6rem; }
+            .flip-card { height: 280px; }
+            .player-inputs { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .cell { font-size: 0.4rem; }
+            .cell-text { display: none; }
+            .center-subtitle { display: none; }
+            .center-emoji { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="floating-icons">
+            <span class="float-item" style="top:8%;left:8%;">🎲</span>
+            <span class="float-item" style="top:15%;right:12%;animation-delay:1s;">💬</span>
+            <span class="float-item" style="top:55%;left:5%;animation-delay:2s;">☕</span>
+            <span class="float-item" style="top:65%;right:8%;animation-delay:1.5s;">🎯</span>
+            <span class="float-item" style="top:35%;left:85%;animation-delay:0.5s;">❤️</span>
+            <span class="float-item" style="top:78%;left:35%;animation-delay:2.5s;">🌟</span>
+            <span class="float-item" style="top:25%;left:45%;animation-delay:3s;">🌸</span>
+            <span class="float-item" style="top:70%;left:70%;animation-delay:1.8s;">😊</span>
+        </div>
+
+        <div class="logo-container">
+            <h1 class="main-title">
+                老<span class="best">Best</span><br>CHAT
+            </h1>
+            <div class="hero-illustration">
+                👵🎲👨‍👩‍👧‍👦
+            </div>
+            <p class="subtitle">一盤棋，就可以同屋企人變成老Best！</p>
+            <div class="cta-buttons">
+                <a href="#game" class="btn btn-primary">開始遊戲</a>
+                <a href="#how-to-play" class="btn btn-secondary">點玩？</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GAME BOARD -->
+    <section id="game" class="game-section scroll-reveal">
+        <h2 class="section-title">🎮 遊戲棋盤</h2>
+        <div class="board-wrapper">
+            <div class="game-board" id="gameBoard"></div>
+        </div>
+    </section>
+
+    <!-- MULTIPLAYER -->
+    <section class="multiplayer-section scroll-reveal">
+        <h2 class="section-title">👥 多人遊戲</h2>
+        <div class="player-setup">
+            <div class="player-inputs">
+                <div class="player-input-group">
+                    <div class="player-color" style="background:#ff6b6b;"></div>
+                    <input type="text" id="p1Name" placeholder="玩家 1 名稱" value="阿明">
+                </div>
+                <div class="player-input-group">
+                    <div class="player-color" style="background:#4ecdc4;"></div>
+                    <input type="text" id="p2Name" placeholder="玩家 2 名稱" value="婆婆">
+                </div>
+                <div class="player-input-group">
+                    <div class="player-color" style="background:#ffe66d;"></div>
+                    <input type="text" id="p3Name" placeholder="玩家 3 名稱（可選）">
+                </div>
+                <div class="player-input-group">
+                    <div class="player-color" style="background:#a8e6cf;"></div>
+                    <input type="text" id="p4Name" placeholder="玩家 4 名稱（可選）">
+                </div>
+            </div>
+            <div class="game-controls">
+                <button class="btn btn-primary" onclick="startGame()">🎮 開始新遊戲</button>
+                <button class="btn btn-secondary" onclick="rollDiceGame()">🎲 擲骰子</button>
+            </div>
+            <div class="game-status" id="gameStatus" style="display:none;">
+                <div class="current-player" id="currentPlayer"></div>
+                <p id="diceResultGame"></p>
+                <div class="player-positions" id="playerPositions"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D FLIP CARDS -->
+    <section class="cards-section scroll-reveal">
+        <h2 class="section-title">🃏 四種卡牌（點擊翻開）</h2>
+        <div class="cards-grid">
+            <div class="flip-card card-share" onclick="flipCard(this, 'share')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">💬</div>
+                        <div class="card-title">分享題</div>
+                        <div class="card-desc">分享生活點滴<br>加深彼此了解</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="card-question" id="shareQ">點擊「下一題」抽取</div>
+                        <button class="next-card-btn" onclick="event.stopPropagation();drawCard('share')">🔄 下一題</button>
+                        <div class="card-hint">與家人真誠分享</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card card-action" onclick="flipCard(this, 'action')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">🏃</div>
+                        <div class="card-title">動作題</div>
+                        <div class="card-desc">用身體語言<br>表達情感</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="card-question" id="actionQ">點擊「下一題」抽取</div>
+                        <button class="next-card-btn" onclick="event.stopPropagation();drawCard('action')">🔄 下一題</button>
+                        <div class="card-hint">大膽做出動作！</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card card-bond" onclick="flipCard(this, 'bond')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">❤️</div>
+                        <div class="card-title">默契題</div>
+                        <div class="card-desc">考驗默契<br>心靈相通</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="card-question" id="bondQ">點擊「下一題」抽取</div>
+                        <button class="next-card-btn" onclick="event.stopPropagation();drawCard('bond')">🔄 下一題</button>
+                        <div class="card-hint">一起說出答案</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card card-chance" onclick="flipCard(this, 'chance')">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">❓</div>
+                        <div class="card-title">機會卡</div>
+                        <div class="card-desc">隨機機會<br>驚喜連連</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="card-question" id="chanceQ">點擊「下一題」抽取</div>
+                        <button class="next-card-btn" onclick="event.stopPropagation();drawCard('chance')">🔄 下一題</button>
+                        <div class="card-hint">接受命運的安排</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO PLAY -->
+    <section id="how-to-play" class="how-to-play scroll-reveal">
+        <h2 class="section-title">📖 點玩？</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>擲骰前進</h3>
+                <p>玩家輪流擲骰子，按點數在棋盤上前進，享受與家人共處的時光</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>抽取卡牌</h3>
+                <p>根據停留的格子顏色，抽取對應類型的卡牌，準備好迎接挑戰</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>完成挑戰</h3>
+                <p>按照卡牌上的指示完成分享、動作或默契挑戰，展現真實的自己</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>成為老Best</h3>
+                <p>完成所有挑戰，與家人建立深厚感情，成為真正的老Best！</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">老Best CHAT</div>
+            <p class="footer-tagline">一盤棋，就可以同屋企人變成老Best！</p>
+            <p style="font-size:0.9rem;color:#666;">
+                適合全家一起玩的溫馨桌遊 ❤️
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">卡牌內容</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <ul class="question-list" id="questionList"></ul>
+        </div>
+    </div>
+
+    <script>
+        // ===== EXPANDED CARD DATABASE =====
+        const cardData = {
+            'share': {
+                title: '💬 分享題',
+                color: '#e8929c',
+                questions: [
+                    '分享一件今日最開心的事',
+                    '講一個你小時候的趣事',
+                    '你最喜歡的食物是什麼？為什麼？',
+                    '分享一個你最近學到的新知識',
+                    '如果可以環遊世界，你最想去哪裡？',
+                    '講一個你印象最深刻的生日',
+                    '你最喜歡的節日是什麼？',
+                    '分享一個你的小秘密（可選）',
+                    '你最喜歡的電影/電視劇是什麼？',
+                    '講一個你覺得驕傲的成就',
+                    '如果可以擁有一種超能力，你會選什麼？',
+                    '分享一個你最近讀過的書或文章',
+                    '你最喜歡的季節是什麼？為什麼？',
+                    '講一個你與家人最溫馨的回憶',
+                    '如果可以回到過去，你想對年輕時的自己說什麼？',
+                    '你最喜歡的香港美食是什麼？',
+                    '分享一個你最近學會的新技能',
+                    '如果可以邀請任何人共進晚餐，你會選誰？',
+                    '講一個你覺得有趣的夢境',
+                    '你最珍惜的一件物品是什麼？為什麼？'
+                ]
+            },
+            'action': {
+                title: '🏃 動作題',
+                color: '#7eb8e2',
+                questions: [
+                    '模仿一種動物的動作，讓其他人猜',
+                    '用三個動作表達「我愛你」',
+                    '做一個你最擅長的表情',
+                    '模仿家中另一位成員的招牌動作',
+                    '用身體擺出一個數字，讓其他人猜',
+                    '做一個搞笑的舞蹈動作',
+                    '模仿一種職業（如醫生、老師）',
+                    '用動作表演一個成語',
+                    '單腳站立10秒鐘',
+                    '做一個瑜伽動作',
+                    '模仿一種交通工具的聲音和動作',
+                    '用動作表演「吃麵」的過程',
+                    '做一個功夫動作',
+                    '模仿一種鳥類的飛行動作',
+                    '用動作表演「刷牙」',
+                    '做一個太極動作',
+                    '模仿一種樂器的演奏動作',
+                    '用動作表演「爬山」',
+                    '做一個芭蕾舞動作',
+                    '模仿一種昆蟲的爬行方式'
+                ]
+            },
+            'bond': {
+                title: '❤️ 默契題',
+                color: '#a8d5a2',
+                questions: [
+                    '同時說出一種水果，看是否一樣',
+                    '同時比出一個數字（1-5），看是否相同',
+                    '同時說出家中最喜歡的角落',
+                    '同時說出今晚想吃的晚餐',
+                    '同時說出一個顏色',
+                    '同時說出一種動物',
+                    '同時說出最喜歡的季節',
+                    '閉眼，同時指向家中最搞笑的人',
+                    '同時說出一個數字（1-10）',
+                    '同時說出一種飲品',
+                    '同時說出一個香港地標',
+                    '同時比出一個手勢',
+                    '同時說出一種交通工具',
+                    '同時說出一個卡通人物',
+                    '閉眼，同時指向家中最勤力的人',
+                    '同時說出一種花',
+                    '同時說出一個電影類型',
+                    '同時說出一種運動',
+                    '同時說出一個星座',
+                    '閉眼，同時指向家中最會煮飯的人'
+                ]
+            },
+            'chance': {
+                title: '❓ 機會卡',
+                color: '#f5e6a3',
+                questions: [
+                    '前進3步！',
+                    '後退2步...',
+                    '指定一位玩家回答你的問題',
+                    '所有人一起唱一首歌',
+                    '你可以交換位置 with 任何一位玩家',
+                    '免費再擲一次！',
+                    '講一個笑話，如果好笑就前進2步',
+                    '擁抱你身邊的人',
+                    '暫停一回合，休息一下',
+                    '直接跳到最近的咖啡格',
+                    '選一位玩家，你們要一起完成一個動作題',
+                    '說出三個家人的優點',
+                    '前進到下一個分享格',
+                    '所有人一起說「我們是老Best」',
+                    '你可以讓一位玩家後退1步',
+                    '分享一個感謝，然後前進1步',
+                    '與左邊的玩家交換位置',
+                    '閉眼轉三圈，然後前進',
+                    '模仿一個家人的說話方式',
+                    '所有人一起拍一張合照'
+                ]
+            }
+        };
+
+        // ===== BOARD GENERATION - EXACT LAYOUT =====
+        const boardLayout = [
+            ['dice','share','bond','coffee','share','chance','bond','coffee','share','action','share'],
+            ['share',null,null,null,null,null,null,null,null,null,'bond'],
+            ['bond',null,null,null,null,null,null,null,null,null,'share'],
+            ['coffee',null,null,null,null,null,null,null,null,null,'coffee'],
+            ['action',null,null,null,null,null,null,null,null,null,'action'],
+            ['chance',null,null,null,null,null,null,null,null,null,'chance'],
+            ['share',null,null,null,null,null,null,null,null,null,'bond'],
+            ['coffee',null,null,null,null,null,null,null,null,null,'coffee'],
+            ['bond',null,null,null,null,null,null,null,null,null,'share'],
+            ['action',null,null,null,null,null,null,null,null,null,'action'],
+            ['share','action','share','coffee','share','chance','action','coffee','bond','share','start']
+        ];
+
+        const cellTypes = {
+            'share': { icon: '💬', text: '分享', class: 'cell-share' },
+            'action': { icon: '🏃', text: '動作', class: 'cell-action' },
+            'bond': { icon: '❤️', text: '默契', class: 'cell-bond' },
+            'chance': { icon: '❓', text: '機會', class: 'cell-chance' },
+            'coffee': { icon: '☕', text: '', class: 'cell-coffee' },
+            'start': { icon: '🏁', text: '起點', class: 'cell-start' },
+            'dice': { icon: '🎲', text: '多擲一次', class: 'cell-dice' }
+        };
+
+        let players = [];
+        let currentPlayerIndex = 0;
+        let gameStarted = false;
+
+        function generateBoard() {
+            const board = document.getElementById('gameBoard');
+            board.innerHTML = '';
+
+            boardLayout.forEach((row, i) => {
+                row.forEach((cell, j) => {
+                    if (cell === null) {
+                        // Check if this is center area
+                        if (i >= 2 && i <= 8 && j >= 2 && j <= 8) {
+                            // Only create center logo once
+                            if (i === 2 && j === 2) {
+                                const center = document.createElement('div');
+                                center.className = 'center-logo';
+                                center.innerHTML = `
+                                    <div class="center-title">
+                                        老<span class="best-text">Best</span><br>CHAT
+                                    </div>
+                                    <div class="center-emoji">👵🎲👨‍👩‍👧‍👦</div>
+                                    <div class="center-subtitle">一盤棋，就可以同屋企人變成老Best！</div>
+                                `;
+                                center.style.gridColumn = '3 / 10';
+                                center.style.gridRow = '3 / 10';
+                                board.appendChild(center);
+                            }
+                        } else {
+                            const div = document.createElement('div');
+                            div.style.visibility = 'hidden';
+                            board.appendChild(div);
+                        }
+                    } else {
+                        const div = document.createElement('div');
+                        div.className = 'cell';
+                        const type = cellTypes[cell];
+                        div.classList.add(type.class);
+                        div.dataset.type = cell;
+                        div.dataset.row = i;
+                        div.dataset.col = j;
+                        div.innerHTML = `
+                            <span class="cell-icon">${type.icon}</span>
+                            <span class="cell-text">${type.text}</span>
+                        `;
+                        div.onclick = () => showCellInfo(cell, type.text);
+                        board.appendChild(div);
+                    }
+                });
+            });
+        }
+
+        function showCellInfo(type, text) {
+            if (type === 'coffee') {
+                showModal('☕ 休息區', ['飲杯咖啡，休息一下！','與家人閒聊幾句','享受這刻的寧靜'], '#f5f5f0');
+            } else if (type === 'start') {
+                showModal('🏁 起點', ['由這裡開始你的老Best之旅！','準備好與家人建立深厚感情了嗎？'], '#e8d47a');
+            } else if (type === 'dice') {
+                showModal('🎲 幸運格', ['恭喜！你可以多擲一次骰子！','運氣不錯喔！'], '#8b7fb8');
+            } else {
+                showCardModal(type);
+            }
+        }
+
+        function showModal(title, items, color) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const list = document.getElementById('questionList');
+
+            modalTitle.textContent = title;
+            modalTitle.style.color = color || '#2d2d2d';
+            list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+            modal.classList.add('active');
+        }
+
+        function showCardModal(type) {
+            const data = cardData[type];
+            showModal(data.title, data.questions.slice(0, 8), data.color);
+        }
+
+        function closeModal(e) {
+            if (!e || e.target.id === 'modal') {
+                document.getElementById('modal').classList.remove('active');
+            }
+        }
+
+        // ===== 3D FLIP CARDS =====
+        function flipCard(card, type) {
+            card.classList.toggle('flipped');
+            if (card.classList.contains('flipped')) {
+                drawCard(type);
+            }
+        }
+
+        function drawCard(type) {
+            const data = cardData[type];
+            const randomQ = data.questions[Math.floor(Math.random() * data.questions.length)];
+            const el = document.getElementById(type + 'Q');
+            if (el) {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.textContent = randomQ;
+                    el.style.opacity = '1';
+                }, 200);
+            }
+        }
+
+        // ===== MULTIPLAYER GAME =====
+        function startGame() {
+            players = [];
+            const names = [
+                document.getElementById('p1Name').value || '玩家1',
+                document.getElementById('p2Name').value || '玩家2',
+                document.getElementById('p3Name').value,
+                document.getElementById('p4Name').value
+            ].filter(n => n.trim() !== '');
+
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#a8e6cf'];
+            const emojis = ['😀', '😊', '🤗', '😎'];
+
+            names.forEach((name, i) => {
+                players.push({
+                    name: name,
+                    color: colors[i],
+                    emoji: emojis[i],
+                    position: 0, // 0 = start
+                    pathIndex: 0
+                });
+            });
+
+            if (players.length < 2) {
+                alert('請至少輸入兩位玩家名稱！');
+                return;
+            }
+
+            currentPlayerIndex = 0;
+            gameStarted = true;
+            updateGameStatus();
+            document.getElementById('gameStatus').style.display = 'block';
+
+            // Add tokens to board
+            document.querySelectorAll('.player-token').forEach(t => t.remove());
+            updatePlayerTokens();
+        }
+
+        // Define the path around the board (indices in the 11x11 grid)
+        const boardPath = [];
+        // Bottom row (right to left, excluding start which is at end)
+        for (let col = 9; col >= 0; col--) boardPath.push({row: 10, col: col});
+        // Left column (bottom to top)
+        for (let row = 9; row >= 0; row--) boardPath.push({row: row, col: 0});
+        // Top row (left to right)
+        for (let col = 1; col <= 10; col++) boardPath.push({row: 0, col: col});
+        // Right column (top to bottom)
+        for (let row = 1; row <= 9; row++) boardPath.push({row: row, col: 10});
+
+        function rollDiceGame() {
+            if (!gameStarted) {
+                alert('請先點擊「開始新遊戲」！');
+                return;
+            }
+
+            const diceValue = Math.floor(Math.random() * 6) + 1;
+            const player = players[currentPlayerIndex];
+
+            document.getElementById('diceResultGame').innerHTML = 
+                `<span style="font-size:1.5rem;">${player.emoji} 擲出了 <strong>${diceValue}</strong> 點！</span>`;
+
+            // Move player
+            player.pathIndex = (player.pathIndex + diceValue) % boardPath.length;
+            const pos = boardPath[player.pathIndex];
+
+            updatePlayerTokens();
+            updateGameStatus();
+
+            // Check cell type
+            const cellType = boardLayout[pos.row][pos.col];
+            if (cellType && cellType !== 'coffee') {
+                setTimeout(() => {
+                    const data = cardData[cellType];
+                    if (data) {
+                        const randomQ = data.questions[Math.floor(Math.random() * data.questions.length)];
+                        showModal(`🃏 ${player.name} 抽到了${data.title.split(' ')[1]}`, [randomQ, '', '完成挑戰後點擊擲骰子繼續'], data.color);
+                    }
+                }, 600);
+            }
+
+            // Next player
+            currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+        }
+
+        function updatePlayerTokens() {
+            document.querySelectorAll('.player-token').forEach(t => t.remove());
+
+            players.forEach((player, i) => {
+                const pos = boardPath[player.pathIndex];
+                const cells = document.querySelectorAll('.cell');
+                // Find cell at this position
+                const targetCell = document.querySelector(`.cell[data-row="${pos.row}"][data-col="${pos.col}"]`);
+                if (targetCell) {
+                    const token = document.createElement('div');
+                    token.className = `player-token token-p${i+1}`;
+                    token.style.background = player.color;
+                    token.textContent = player.emoji;
+                    token.style.top = (20 + (i * 15)) + '%';
+                    token.style.left = (20 + (i * 15)) + '%';
+                    targetCell.appendChild(token);
+                }
+            });
+        }
+
+        function updateGameStatus() {
+            const current = players[currentPlayerIndex];
+            document.getElementById('currentPlayer').innerHTML = 
+                `<span style="color:${current.color};">${current.emoji} 現在輪到 ${current.name}！</span>`;
+
+            const posDiv = document.getElementById('playerPositions');
+            posDiv.innerHTML = players.map((p, i) => `
+                <div class="player-pos">
+                    <div class="player-color" style="background:${p.color};"></div>
+                    <span>${p.name}: 第${p.pathIndex + 1}格</span>
+                </div>
+            `).join('');
+        }
+
+        // ===== SCROLL ANIMATIONS =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // ===== INIT =====
+        generateBoard();
+    </script>
+</body>
+</html>
